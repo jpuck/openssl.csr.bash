@@ -2,4 +2,6 @@
 *.csr
 *.crt
 *.chn
-
+*.cer
+*.pem
+*.pfx
