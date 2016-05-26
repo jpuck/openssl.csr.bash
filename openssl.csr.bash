@@ -16,6 +16,7 @@ declare -a subject_alternative_names=(
 )
 
 if $use_subject_alternative_names; then
+
   sanstring=""
   for san in ${subject_alternative_names[@]}; do
     sanstring="$sanstring""DNS:$san,"
@@ -23,10 +24,18 @@ if $use_subject_alternative_names; then
   # trim trailing comma
   sanstring=${sanstring::-1}
 
-  # get default openssl.cnf
-  # thanks Jeff Walton http://stackoverflow.com/a/37042289/4233593
-  opensslcnf=$(openssl version -d | cut -d '"' -f2)/openssl.cnf
+  if [[ -z "$OPENSSL_CONF" ]]; then
+    # get default openssl.cnf
+    # thanks Jeff Walton http://stackoverflow.com/a/37042289/4233593
+    opensslcnf=$(openssl version -d | cut -d '"' -f2)/openssl.cnf
+  else
+    opensslcnf="$OPENSSL_CONF"
+  fi
+
   openssl req -new -nodes -sha256 -newkey rsa:2048 -keyout $site_name.key -out $site_name.csr -subj "/CN=$site_name/emailAddress=$email_address/O=$organization/OU=$organizational_unit/C=$country/ST=$state/L=$city" -reqexts SAN -config <(cat $opensslcnf <(printf "[SAN]\nsubjectAltName=$sanstring"))
+
 else
+
   openssl req -new -nodes -sha256 -newkey rsa:2048 -keyout $site_name.key -out $site_name.csr -subj "/CN=$site_name/emailAddress=$email_address/O=$organization/OU=$organizational_unit/C=$country/ST=$state/L=$city"
+
 fi
