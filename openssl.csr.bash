@@ -9,9 +9,12 @@ city="Fayetteville"
 
 use_subject_alternative_names=true
 
+# common name also required in SAN list
 declare -a subject_alternative_names=(
-  "www.example.com"
-  "test.example.com"
+  "$site_name"
+  "www.$site_name"
+  "dev.$site_name"
+  "test.$site_name"
   "example.net"
 )
 
