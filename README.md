@@ -26,7 +26,8 @@ intermediate CA, certificate signing requests, and certs
 - sometimes you want one certificate to use with multiple sub-domain names, such as `www.example.com`, `test.example.com`, and `another.example.com`, but you don't want to be so permissive as to issue a [wildcard certificate][6] `*.example.com`
 - sometimes your alias domains are not sub-domains, such as `example.com` and `example.org`
 
-[here is a guide][4] for creating the configuration file to be used with the CSR
+this script is written to properly generate SAN certificates, but if you're interested, then [here is a guide][4]
+for creating the configuration file used to generate the CSR.
 
 as an addendum to the [end-to-end guide][3], you will need to [modify your intermediate CA configuration][5]
 by adding `copy_extensions = copy` to the `[CA_default]` section
