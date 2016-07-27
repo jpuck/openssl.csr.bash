@@ -9,6 +9,11 @@ city="Fayetteville"
 
 use_subject_alternative_names=true
 
+# common name MUST also be included as subject alternative name
+# per RFC 6125 (https://tools.ietf.org/html/rfc6125#section-6.4.4), published in 2011:
+# the validator must check SAN first, and if SAN exists, then CN should not be checked.
+# http://stackoverflow.com/a/5937270/4233593
+# failure to include CN as one of the SANs will result in certificate errors in some browsers
 declare -a subject_alternative_names=(
   "$site_name"
   "www.$site_name"
