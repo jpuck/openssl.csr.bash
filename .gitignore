@@ -5,3 +5,4 @@
 *.cer
 *.pem
 *.pfx
+outssl/
