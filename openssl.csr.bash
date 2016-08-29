@@ -19,6 +19,7 @@ declare -a subject_alternative_names=(
   "www.$site_name"
   "dev.$site_name"
   "test.$site_name"
+  "*.$site_name"
   "example.net"
 )
 
