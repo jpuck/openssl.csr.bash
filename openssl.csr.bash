@@ -21,6 +21,7 @@ declare -a subject_alternative_names=(
   "test.$site_name"
   "*.$site_name"
   "example.net"
+  "example.org"
 )
 
 if [ ! -d outssl ]; then
