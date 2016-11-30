@@ -24,6 +24,8 @@ declare -a subject_alternative_names=(
   "example.org"
 )
 
+set -e
+
 if [ ! -d outssl ]; then
   mkdir outssl
 fi
