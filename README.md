@@ -18,7 +18,16 @@ execute the script
 
     ./openssl.csr.bash
 
-# additional info
+## converting formats (.crt/.pem/.cer & .key) to .pfx
+Microsoft's IIS uses the `pfx` format, so you will need to [convert it][7]
+
+    openssl pkcs12 -export -out example.com.pfx -inkey example.com.key -in example.com.crt
+
+## verify installation
+
+    openssl s_client -showcerts -servername example.com -connect example.com:443
+
+## DIY
 [here is an end-to-end guide][3] for creating a root certificate authority,
 intermediate CA, certificate signing requests, and certs
 
@@ -38,13 +47,7 @@ certificate signing request. if you are signing requests for other people, then 
 
     openssl req -text -noout -verify -in example.com.csr
 
-## converting formats (.crt/.pem/.cer & .key) to .pfx
-Microsoft's IIS uses the `pfx` format, so you will need to [convert it][7]
-
-    openssl pkcs12 -export -out example.com.pfx -inkey example.com.key -in example.com.crt
-
-# credits
-
+## credits
 Thanks to Jeff Walton for [helping me figure out][2] which default configuration file to use.
 
 [1]:https://www.openssl.org/
