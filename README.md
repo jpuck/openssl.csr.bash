@@ -23,7 +23,11 @@ Microsoft's IIS uses the `pfx` format, so you will need to [convert it][7]
 
     openssl pkcs12 -export -out example.com.pfx -inkey example.com.key -in example.com.crt
 
-## verify installation
+## verify signed certificate
+
+    openssl x509 -noout -text -in example.com.crt
+
+## verify server installation
 
     openssl s_client -showcerts -servername example.com -connect example.com:443
 
