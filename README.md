@@ -18,6 +18,10 @@ execute the script
 
     ./openssl.csr.bash
 
+## verify certificate signing request
+
+    openssl req -noout -text -in example.com.csr
+
 ## converting formats (.crt/.pem/.cer & .key) to .pfx
 Microsoft's IIS uses the `pfx` format, so you will need to [convert it][7]
 
