@@ -30,6 +30,8 @@ if [ ! -d outssl ]; then
   mkdir outssl
 fi
 
+command="openssl req -new -nodes -sha256 -newkey rsa:2048 -keyout \"outssl/$site_name.key\" -out \"outssl/$site_name.csr\" -subj \"/emailAddress=$email_address/CN=$site_name/O=$organization/OU=$organizational_unit/C=$country/ST=$state/L=$city\""
+
 if $use_subject_alternative_names; then
 
   sanstring=""
@@ -47,10 +49,8 @@ if $use_subject_alternative_names; then
     opensslcnf="$OPENSSL_CONF"
   fi
 
-  openssl req -new -nodes -sha256 -newkey rsa:2048 -keyout "outssl/$site_name.key" -out "outssl/$site_name.csr" -subj "/emailAddress=$email_address/CN=$site_name/O=$organization/OU=$organizational_unit/C=$country/ST=$state/L=$city" -reqexts SAN -config <(cat $opensslcnf <(printf "[SAN]\nsubjectAltName=$sanstring"))
-
-else
-
-  openssl req -new -nodes -sha256 -newkey rsa:2048 -keyout "outssl/$site_name.key" -out "outssl/$site_name.csr" -subj "/emailAddress=$email_address/CN=$site_name/O=$organization/OU=$organizational_unit/C=$country/ST=$state/L=$city"
+  command="$command -reqexts SAN -config <(cat \"$opensslcnf\" <(printf \"[SAN]\nsubjectAltName=$sanstring\"))"
 
 fi
+
+eval "$command"
