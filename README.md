@@ -26,6 +26,22 @@ execute the script
 
     openssl x509 -noout -text -in example.com.crt
 
+## inspect complete certificate chain
+
+    openssl crl2pkcs7 -nocrl -certfile example.com.pem | openssl pkcs7 -print_certs -text -noout
+
+[credit][9]
+
+This starts with the client certificate and links back through intermediate
+certificates until a trusted certificate authority is identified.
+
+per [IETF's RFC 5246 Section 7.4.2][10]:
+
+> The sender's certificate MUST come first in the list.
+> Each following certificate MUST directly certify the one preceding it.
+
+It's unnecessary to end with the root certificate because it's already trusted.
+
 ## converting formats (.crt/.pem/.cer & .key) to .pfx
 Microsoft's IIS uses the `pfx` format, so you will need to [convert it][7]
 
@@ -66,3 +82,5 @@ Thanks to Jeff Walton for [helping me figure out][2] which default configuration
 [6]:https://en.wikipedia.org/wiki/Wildcard_certificate
 [7]:http://stackoverflow.com/a/17284371/4233593
 [8]:https://en.wikipedia.org/wiki/SubjectAltName
+[9]:https://serverfault.com/a/755815/331028
+[10]:https://tools.ietf.org/html/rfc5246#section-7.4.2
