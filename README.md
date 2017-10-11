@@ -18,11 +18,11 @@ execute the script
 
     ./openssl.csr.bash
 
-## verify certificate signing request
+## inspect certificate signing request
 
     openssl req -noout -text -in example.com.csr
 
-## verify signed certificate
+## inspect signed certificate
 
     openssl x509 -noout -text -in example.com.crt
 
